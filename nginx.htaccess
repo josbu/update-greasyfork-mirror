@@ -1,0 +1,3 @@
+location ~* ^/scripts/(.*)$ {
+    rewrite ^/scripts/(.*)$ /scriptControl.php?route=$1$is_args$args last;
+}
