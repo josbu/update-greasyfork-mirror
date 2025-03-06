@@ -4,12 +4,12 @@ if($_GET['pass']!=='123654'){
 }
 // 获取当前文件的路径
 $currentFile = __FILE__;
+
 // 获取当前文件所在目录
 $directory = dirname($currentFile);
-
+$directory.='\store\temp';
 // 打开目录
 $dir = opendir($directory);
-
 // 遍历目录中的所有文件
 while (($file = readdir($dir)) !== false) {
     // 排除当前脚本文件和隐藏文件（以.开头的文件）

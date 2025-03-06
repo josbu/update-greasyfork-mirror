@@ -1,3 +1,6 @@
 location ~* ^/scripts/(.*)$ {
+    if ($request_uri ~* "^/clear\.php") {
+        break;
+    }
     rewrite ^/scripts/(.*)$ /scriptControl.php?route=$1$is_args$args last;
 }
