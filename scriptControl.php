@@ -19,10 +19,10 @@ if (file_exists($file_name)) {
     header('Access-Control-Allow-Origin: *');
 
     // 设置内容类型为 JavaScript
-    header('Content-Type: application/javascript');
+    header('Content-Type: text/plain; charset=utf-8');
     exit($js);
 } else {
-    $url = $originUrl . '/' . 'scripts/' . $route;
+    $url = $originUrl . '/' . 'scripts/' . rawurlencode($route);
     $key = md5($route);
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
@@ -42,6 +42,11 @@ if (file_exists($file_name)) {
     curl_setopt($ch, CURLOPT_ENCODING, '');
     $response = curl_exec($ch);
     if ($response === false) {
+        echo $url;
+        if (curl_errno($ch)) {
+            echo "cURL 错误码: " . curl_errno($ch) . "\n";
+            echo "cURL 错误信息: " . curl_error($ch) . "\n";
+        }
         exit();
     }
     $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
@@ -66,7 +71,7 @@ if (file_exists($file_name)) {
         header('Access-Control-Allow-Origin: *');
 
         // 设置内容类型为 JavaScript
-        header('Content-Type: application/javascript');
+        header('Content-Type: text/plain; charset=utf-8');
         exit($js);
     }
 }
