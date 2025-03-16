@@ -22,7 +22,9 @@ if (file_exists($file_name)) {
     header('Content-Type: text/plain; charset=utf-8');
     exit($js);
 } else {
-    $url = $originUrl . '/' . 'scripts/' . rawurlencode($route);
+    $route = str_replace("%2F","/",rawurlencode($route));
+    $route = str_replace("%3F","?",$route);
+    $url = $originUrl . '/' . 'scripts/' . $route;
     $key = md5($route);
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
